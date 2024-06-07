@@ -1,9 +1,8 @@
 import {Request, Response} from 'express'
 import { createBidOfItem, getAllBidsOfItem } from '../repository/bidRepository'
 import { getUserByUsername } from '../repository/userRepository'
-import { io } from '..'
+import {biddingNamespace} from '..'
 import { authenticate } from '../middlewares/auth'
-
 
 async function getAllItemBids(req: Request, res : Response) {
     const itemId = Number(req.params.itemId)
@@ -31,15 +30,7 @@ async function createItemBid(req: any, res : Response) {
     const username = req.username
     const {bidAmount} = req.body
 
-    const biddingNamespace = io.of('/bidding');
-
-    biddingNamespace.use(authenticate).on('connection', (socket: any) => {
-        console.log(`User ${socket.user.username} connected to /bidding`);
     
-        socket.on('disconnect', () => {
-            console.log(`User ${socket.user.username} disconnected from /bidding`);
-        });
-    });
 
     try {
         const user = await getUserByUsername(username)

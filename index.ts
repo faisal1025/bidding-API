@@ -9,6 +9,7 @@ import notificationRouters from './routers/notificationRoutes'
 import {Server} from 'socket.io'
 import cors from 'cors'
 import dotenv from 'dotenv'
+import { authenticate } from './middlewares/auth';
 
 dotenv.config()
 
@@ -17,7 +18,7 @@ const server = http.createServer(app)
 const PORT = 8001
 const baseUiUrl = process.env.NODE_ENV === 'production' ? process.env.baseUiUrlProd : process.env.baseUiUrlLocal
 
-export const io = new Server(server, {
+const io = new Server(server, {
     cors: {
         origin: baseUiUrl,
         methods: ["GET", "POST"],
@@ -34,6 +35,16 @@ app.use(cors({
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use("/uploads", express.static(__dirname + '/uploads'))
+
+export const biddingNamespace = io.of('/bidding');
+
+biddingNamespace.on('connection', (socket: any) => {
+    console.log(`User connected to /bidding`);
+
+    socket.on('disconnect', () => {
+        console.log(`User disconnected from /bidding`);
+    });
+});
 
 app.get('/', (req: Request, res: Response) => {
     return res.status(200).json({

@@ -18,7 +18,7 @@ Please follow below link:
 - After all the dependencies install time to setup environment.
 - Create .env file in root directory and put all the configurations as below:
 
-Nte - I have provided .env variables on rmail please check 
+Nte - I have provided .env variables on email please check and use them
 
 - Now, run project using `npm start`
 
@@ -63,7 +63,7 @@ basically project is divided into four doamin user, item, bid, notiifcation.
 
 Below is the link of the UI repo and please follow the steps to setup UI written in the readme file of UI repo.
 
-
+<a href='https://github.com/faisal1025/bidding-UI' target='__blank'>Click Here</a>
 
 
 
