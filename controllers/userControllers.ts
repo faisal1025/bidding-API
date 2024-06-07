@@ -2,6 +2,9 @@ import {Request, Response} from 'express'
 import { createUser, getUserByUsername } from '../repository/userRepository'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 async function registerHandler(req: Request, res: Response) {
     const {email, username, password} = req.body
@@ -33,8 +36,11 @@ async function registerHandler(req: Request, res: Response) {
 
 async function loginHandler(req: Request, res: Response) {
     const {username, password} = req.body
-    const secretKey = process.env.secretKey || "fkjsdfhsdkfhsjkghfkgjkfsdgkjfdfdsjgjfsdkgjfdkhgjfdkghjkfdkgjawoie3q2o9roewifsd"
+    const secretKey = process.env.secretKey
     try {
+        if(!secretKey){
+            throw new Error('secret key is invalid')
+        }
         if(!username || (!password)){
             throw new Error('bad request form data is not valid')
         }

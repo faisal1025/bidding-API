@@ -9,7 +9,7 @@ Please look at this postman detailed documentation which I have created for you 
 
 Please follow below link:
 
-<a href='https://documenter.getpostman.com/view/28914964/2sA3XJjjXZ' target='_blank'>https://documenter.getpostman.com/view/28914964/2sA3XJjjXZ</a>
+<a href='https://documenter.getpostman.com/view/28914964/2sA3XJjjXZ' target='__blank'>https://documenter.getpostman.com/view/28914964/2sA3XJjjXZ</a>
 
 ## How to Setup Project locally?
 
@@ -18,12 +18,7 @@ Please follow below link:
 - After all the dependencies install time to setup environment.
 - Create .env file in root directory and put all the configurations as below:
 
-<ul>
-    <li>DIRECT_URL="postgres://postgres.ihkdfedqedmlyiepaakd:zp9YBYd3Ft8tVD3i@aws-0-ap-southeast-1.pooler.supabase.com:5432/postgres"</li>
-    <li>secretKey="fkjsdfhsdkfhsjkghfkgjkfsdgkjfdfdsjgjfsdkgjfdkhgjfdkghjkfdkgjawoie3q2o9roewifsd"</li>
-    <li>baseUiUrlLocal = "http://localhost:3000"</li>
-    <li>baseUiUrlProd = ""</li>
-</ul>
+Nte - I have provided .env variables on rmail please check 
 
 - Now, run project using `npm start`
 

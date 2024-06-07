@@ -1,8 +1,12 @@
 import {Response, Request,  NextFunction} from 'express'
 import jwt from 'jsonwebtoken'
 import {Socket} from 'socket.io'
+import dotenv from 'dotenv'
 
-const secretKey = process.env.secretKey || "fkjsdfhsdkfhsjkghfkgjkfsdgkjfdfdsjgjfsdkgjfdkhgjfdkghjkfdkgjawoie3q2o9roewifsd"
+dotenv.config()
+
+
+const secretKey = process.env.secretKey
 
 export function AllowOnlyAuthenticated(req: any, res: Response, next: NextFunction) {
     const token = req.headers.authorization
@@ -15,7 +19,10 @@ export function AllowOnlyAuthenticated(req: any, res: Response, next: NextFuncti
         })
     }
 
-    
+    if(!secretKey) {
+        throw new Error('secret key is invalid')
+    }
+
     jwt.verify(token.slice(7), secretKey, (err: jwt.VerifyErrors | null, decoded: any) => {
         if(err){
             return res.status(401).json({
@@ -40,7 +47,9 @@ export const authenticate = (socket: any, next: any) => {
     if (!token) {
         return next(new Error('Authentication error'));
     }
-
+    if(!secretKey) {
+        throw new Error('secret key is invalid')
+    }
     jwt.verify(token, secretKey, (err: jwt.VerifyErrors | null, decoded: any) => {
         if (err) {
             return next(new Error('Authentication error'));
